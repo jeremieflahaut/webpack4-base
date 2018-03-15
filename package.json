@@ -1,0 +1,26 @@
+{
+  "name": "webpack4-base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremieflahaut/webpack4-base.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeremieflahaut/webpack4-base/issues"
+  },
+  "homepage": "https://github.com/jeremieflahaut/webpack4-base#readme",
+  "devDependencies": {
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12"
+  }
+}
