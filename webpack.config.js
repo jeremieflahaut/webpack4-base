@@ -1,10 +1,11 @@
 const path = require('path')
 const webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const dev = process.env.NODE_ENV === 'dev'
 
 let cssLoaders = [
-  'style-loader',
-  { loader: 'css-loader', options: { importLoaders: 1 } },
+  { loader: 'css-loader', options: { importLoaders: 1, minimize: !dev } },
   {
     loader: 'postcss-loader',
     options: {
@@ -33,15 +34,18 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: cssLoaders
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: cssLoaders
+        })
       },
       {
         test: /\.scss$/,
-        use: [
-          ...cssLoaders,
-          'sass-loader'
-        ]
-      }
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: [...cssLoaders, 'sass-loader']
+        })
+      },
     ],
   },
 
@@ -50,6 +54,10 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html'
+    }),
+    new ExtractTextPlugin({
+      filename: '[name].css',
+      disable: dev
     })
   ]
 }
