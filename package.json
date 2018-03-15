@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --mode=development",
     "dev": "webpack --mode=development",
     "build": "webpack --mode=production"
   },
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/jeremieflahaut/webpack4-base#readme",
   "devDependencies": {
     "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.12"
+    "webpack-cli": "^2.0.12",
+    "webpack-dev-server": "^3.1.1"
   }
 }
