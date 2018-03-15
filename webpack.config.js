@@ -53,7 +53,14 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html'
+      template: './index.html',
+      links:[
+        {
+          href: 'main.css',
+          rel: 'stylesheet'
+        }
+      ]
+
     }),
     new ExtractTextPlugin({
       filename: '[name].css',
