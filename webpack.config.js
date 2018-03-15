@@ -2,6 +2,21 @@ const path = require('path')
 const webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
+let cssLoaders = [
+  'style-loader',
+  { loader: 'css-loader', options: { importLoaders: 1 } },
+  {
+    loader: 'postcss-loader',
+    options: {
+      plugins: (loader) => [
+        require('autoprefixer')({
+          browsers: ['last 2 versions', 'ie > 8']
+        })
+      ]
+    }
+  }
+]
+
 module.exports = {
   context: path.resolve(__dirname, "src"),
   entry: './js/index.js',
@@ -18,11 +33,14 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        use: cssLoaders
       },
       {
         test: /\.scss$/,
-        use: [ 'style-loader', 'css-loader', 'sass-loader']
+        use: [
+          ...cssLoaders,
+          'sass-loader'
+        ]
       }
     ],
   },
