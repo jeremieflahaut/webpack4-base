@@ -33,6 +33,12 @@ module.exports = {
       loader: 'raw-loader'
       },
       {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: ['eslint-loader']
+      },
+      {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         use: ['babel-loader']

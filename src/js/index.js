@@ -1,9 +1,12 @@
 import css from '../css/styles.scss'
 
 if (process.env.NODE_ENV !== 'production') {
-    require('../index.html')
+  require('../index.html')
 }
 
+console.log(css)
+
+// Your code here
 const tata = 'tata'
 
-console.log('tata')
+console.log(tata)
