@@ -28,6 +28,7 @@ let config = {
     filename: dev ? '[name].js' : '[name]-[hash:6].js'
     // publicPath: '/dist/'
   },
+  devtool: dev ? 'cheap-module-eval-source-map' : false,
   devServer: {
     contentBase: './dist',
     hot: true,
