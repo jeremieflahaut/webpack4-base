@@ -102,7 +102,7 @@ if (!dev) {
   config.plugins.push(new CleanWebpackPlugin(
     ['dist'], {
       root: path.resolve('./'),
-      exclude: ['index.html', '.gitignore'],
+      exclude: ['.gitignore'],
       verbose: true,
       dry: false
     }

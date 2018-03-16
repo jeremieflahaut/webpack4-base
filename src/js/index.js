@@ -7,6 +7,3 @@ if (process.env.NODE_ENV !== 'production') {
 console.log(css)
 
 // Your code here
-const tata = 'tata'
-
-console.log(tata)
