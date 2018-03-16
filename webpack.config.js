@@ -2,6 +2,8 @@ const path = require('path')
 const webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const dev = process.env.NODE_ENV === 'dev'
 
 let cssLoaders = [
@@ -18,9 +20,14 @@ let cssLoaders = [
   }
 ]
 
-module.exports = {
+let config = {
   context: path.resolve(__dirname, "src"),
   entry: './js/index.js',
+  output: {
+    path: path.resolve('./dist'),
+    filename: dev ? '[name].js' : '[name]-[hash:6].js',
+    // publicPath: '/dist/'
+  },
   devServer: {
     contentBase: './dist',
     hot: true,
@@ -74,8 +81,21 @@ module.exports = {
 
     }),
     new ExtractTextPlugin({
-      filename: '[name].css',
+      filename: dev ? '[name].css' : '[name]-[contenthash:6].css',
       disable: dev
     })
   ]
 }
+if (!dev) {
+  config.plugins.push(new ManifestPlugin())
+  config.plugins.push(new CleanWebpackPlugin(
+    ['dist'], {
+      root: path.resolve('./'),
+      exclude: ['index.html'],
+      verbose: true,
+      dry: false
+    }
+  ))
+}
+
+module.exports = config
