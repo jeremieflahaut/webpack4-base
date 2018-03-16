@@ -21,11 +21,11 @@ let cssLoaders = [
 ]
 
 let config = {
-  context: path.resolve(__dirname, "src"),
+  context: path.resolve(__dirname, 'src'),
   entry: './js/index.js',
   output: {
     path: path.resolve('./dist'),
-    filename: dev ? '[name].js' : '[name]-[hash:6].js',
+    filename: dev ? '[name].js' : '[name]-[hash:6].js'
     // publicPath: '/dist/'
   },
   devServer: {
@@ -33,38 +33,47 @@ let config = {
     hot: true,
     port: 9000
   },
-  
   module: {
     rules: [{
       test: /\.html$/,
       loader: 'raw-loader'
-      },
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: ['eslint-loader']
-      },
-      {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: ['babel-loader']
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: cssLoaders
-        })
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [...cssLoaders, 'sass-loader']
-        })
-      },
-    ],
+    },
+    {
+      enforce: 'pre',
+      test: /\.js$/,
+      exclude: /(node_modules|bower_components)/,
+      use: ['eslint-loader']
+    },
+    {
+      test: /\.js$/,
+      exclude: /(node_modules|bower_components)/,
+      use: ['babel-loader']
+    },
+    {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: cssLoaders
+      })
+    },
+    {
+      test: /\.scss$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [...cssLoaders, 'sass-loader']
+      })
+    },
+    {
+      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+      loader: 'file-loader',
+      options: { name: '[name].[ext]' }
+    },
+    {
+      test: /\.(png|jpg|gif|svg)$/,
+      loader: 'file-loader',
+      options: { name: '[name].[ext]' }
+    }
+    ]
   },
 
   plugins: [
@@ -72,7 +81,7 @@ let config = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html',
-      links:[
+      links: [
         {
           href: 'main.css',
           rel: 'stylesheet'
@@ -86,12 +95,13 @@ let config = {
     })
   ]
 }
+
 if (!dev) {
   config.plugins.push(new ManifestPlugin())
   config.plugins.push(new CleanWebpackPlugin(
     ['dist'], {
       root: path.resolve('./'),
-      exclude: ['index.html'],
+      exclude: ['index.html', '.gitignore'],
       verbose: true,
       dry: false
     }
